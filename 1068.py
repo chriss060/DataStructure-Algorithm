@@ -1,3 +1,6 @@
+git remote add origin https://github.com/hye-on/study.git
+git branch -M main
+git push -u origin main
 import sys
 input = sys.stdin.readline
 def dfs(num, arr):
