@@ -1,3 +1,6 @@
+git remote add origin https://github.com/hye-on/study.git
+git branch -M main
+git push -u origin main
 # n,k 값 입력받음
 n, k = map(int, input().split())
 # (무게, 가치) 튜플 사전 {0:(6,13), 1:(4,8), 2:(3,6), 3:(5,12)}
