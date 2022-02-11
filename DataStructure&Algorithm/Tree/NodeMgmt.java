@@ -51,25 +51,6 @@ public class NodeMgmt {
 	}
 
 	// 이진탐색트리 삭제 함수
-	public Node search(int data) {
-        // CASE1: Node 가 하나도 없을 때
-        if (head == null) {
-            return null;
-        } else {
-            // CASE2: Node 가 하나라도 들어가 있을 때
-            Node findNode = this.head;
-            while (findNode != null) {
-                if (findNode.value == data) {
-                    return findNode;
-                } else if (data < findNode.value) {
-                    findNode = findNode.left;
-                } else {
-                    findNode = findNode.right;
-                }
-            }
-            return null;
-        }
-    }
 
     public boolean delete(int value) {
         boolean searched = false;
