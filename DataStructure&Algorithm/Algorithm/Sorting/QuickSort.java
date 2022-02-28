@@ -15,7 +15,7 @@ public class QuickSort {
 		ArrayList<Integer> leftArr = new ArrayList<Integer>();
 		ArrayList<Integer> rightArr = new ArrayList<Integer>();
 		
-		for(int index=1; index<dataList.size()-1; index++) {
+		for(int index=1; index<dataList.size(); index++) {
 			if(dataList.get(index)>pivot) {
 				rightArr.add(dataList.get(index));
 			}else {
