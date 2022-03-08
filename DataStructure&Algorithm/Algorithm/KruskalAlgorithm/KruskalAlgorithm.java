@@ -1,4 +1,4 @@
-package KruscalAlgorithm;
+package KruskalAlgorithm;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -7,64 +7,60 @@ import java.util.Collections;
 
 public class KruskalAlgorithm {
 	
-	//path-compression, union-by-rank 를 위한 hashmap parent, rank 
-	HashMap<String, String> parent = new HashMap<String, String>();
-	HashMap<String, Integer> rank = new HashMap<String, Integer>();
-	
-	public String find(String node) {
-		//path compression 기법 - recursion으로 parent node 연결 
-		if(parent.get(node)!= node) {
-			parent.put(node, find(parent.get(node)));
-		}
-		return parent.get(node);
-	}
-	
-	public void union(String nodeV, String nodeU) {
-		//find함수 먼저 실행해 중복 방지 
-		String root1 = find(nodeV);
-		String root2 = find(nodeU);
-		
-		//union-by-rank
-		if(rank.get(root1)>rank.get(root2)) {
-			//root1 랭크 > root2 랭크 : root2를 root1트리에 붙이기 
-			parent.put(root2, root1);
-		}else {
-			parent.put(root1, root2);
-			
-			//rank가 같은 경우 : 한쪽 트리 랭크 1증가한 후, 다른 트리 붙이기 
-			if(rank.get(root1)== rank.get(root2)) {
-				rank.put(root2, rank.get(root2)+1);
-			}
-		}
-	}
-	
-	//초기화 함수
-	public void makeSet(String node) {
-		parent.put(node, node);
-		rank.put(node, 0);
-	}
-	
-	public ArrayList<Edge> kruskalFunc(ArrayList<String> vetices, ArrayList<Edge> edges){
-		
-		ArrayList<Edge> mst = new ArrayList<Edge>();
-		Edge currentEdge;
-		//1. 초기화 
-		for(int index=0; index<vetices.size(); index++) {
-			this.makeSet(vetices.get(index));
-		}
-		
-		//2. 간선 weight 기반 Sorting 
-		Collections.sort(edges);
-		
-		for(int index=0; index<edges.size(); index++) {
-			currentEdge = edges.get(index);
-			if(this.find(currentEdge.nodeV)!= this.find(currentEdge.nodeV)) {
-				this.union(currentEdge.nodeV, currentEdge.nodeU);
-				mst.add(currentEdge);
-			}
-		}
-		return mst;
-	}
+    HashMap<String, String> parent = new HashMap<String, String>();
+    HashMap<String, Integer> rank = new HashMap<String, Integer>();
+    
+    public String find(String node) {
+    	
+        // path compresion 기법
+        if (this.parent.get(node) != node) {
+            this.parent.put(node, this.find(this.parent.get(node)));
+        }
+        return this.parent.get(node);
+    }
+    
+    public void union(String nodeV, String nodeU) {
+        String root1 = this.find(nodeV);
+        String root2 = this.find(nodeU);
+        
+        // union-by-rank 기법
+        if (this.rank.get(root1) > this.rank.get(root2)) {
+            this.parent.put(root2, root1);
+        } else {
+            this.parent.put(root1, root2);
+            if (this.rank.get(root1) == this.rank.get(root2)) {
+                this.rank.put(root2, this.rank.get(root2) + 1);
+            }
+        }
+    }
+    
+    public void makeSet(String node) {
+        this.parent.put(node, node);
+        this.rank.put(node, 0);
+    }
+    
+    public ArrayList<Edge> kruskalFunc(ArrayList<String> vertices, ArrayList<Edge> edges) {
+        ArrayList<Edge> mst = new ArrayList<Edge>();
+        Edge currentEdge;
+        
+        // 1. 초기화
+        for (int index = 0; index < vertices.size(); index++) {
+            this.makeSet(vertices.get(index));
+        }
+        
+        // 2. 간선 weight 기반 sorting
+        Collections.sort(edges);
+        
+        for (int index = 0; index < edges.size(); index++) {
+            currentEdge = edges.get(index);
+            if (this.find(currentEdge.nodeV) != this.find(currentEdge.nodeU)) {
+                this.union(currentEdge.nodeV, currentEdge.nodeU);
+                mst.add(currentEdge);
+            }
+        }
+        
+        return mst;
+    }
 
 	public static void main(String[] args) {
 		
